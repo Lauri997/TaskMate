@@ -1,7 +1,13 @@
 
-* {
-    box-sizing: border-box;
-}
+<!DOCTYPE html>
+<html lang="et">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TaskMate - Ülesannete haldamine</title>
+
+<style>
+* { box-sizing: border-box; }
 
 body {
     margin: 0;
@@ -16,6 +22,8 @@ header {
     text-align: center;
     padding: 35px 20px;
 }
+
+header h1 { font-size: 38px; margin: 0; }
 
 main {
     max-width: 850px;
@@ -39,6 +47,7 @@ section {
 }
 
 .statistics span {
+    display: block;
     font-size: 30px;
     font-weight: bold;
     color: #2563eb;
@@ -52,10 +61,7 @@ input, textarea, select {
     border-radius: 7px;
 }
 
-textarea {
-    min-height: 80px;
-    resize: vertical;
-}
+textarea { min-height: 80px; }
 
 button {
     border: none;
@@ -67,9 +73,7 @@ button {
     color: white;
 }
 
-button:hover {
-    opacity: 0.85;
-}
+button:hover { opacity: .85; }
 
 .task-item {
     border: 1px solid #e2e8f0;
@@ -78,52 +82,334 @@ button:hover {
     border-radius: 9px;
 }
 
-.task-item.completed {
-    background: #f0fdf4;
-}
+.task-item.completed { background: #f0fdf4; }
 
 .done {
     text-decoration: line-through;
     color: #64748b;
 }
 
-.priority.green {
-    color: green;
-}
+.delete-btn { background: #dc2626; }
+.edit-btn { background: #64748b; }
+.complete-btn { background: #16a34a; }
 
-.priority.orange {
-    color: orange;
-}
+.priority.green { color: green; }
+.priority.orange { color: orange; }
+.priority.red { color: red; }
 
-.priority.red {
-    color: red;
-}
+.about p { line-height: 1.6; }
 
-.delete-btn {
-    background: #dc2626;
-}
-
-.edit-btn {
-    background: #64748b;
-}
-
-.complete-btn {
-    background: #16a34a;
-}
-
-.empty-message {
-    color: #64748b;
+footer {
     text-align: center;
-    padding: 20px;
+    padding: 25px;
+    color: #64748b;
 }
 
-@media (max-width: 600px) {
-    .statistics {
-        grid-template-columns: 1fr;
-    }
+@media(max-width:600px) {
+    .statistics { grid-template-columns: 1fr; }
+    main { padding: 12px; }
+}
+</style>
+</head>
 
-    main {
-        padding: 12px;
-    }
+<body>
+
+<header>
+    <h1>TaskMate</h1>
+    <p>Sinu igapäevaste ülesannete parim kaaslane!</p>
+    <p>Grupp: TAK26</p>
+</header>
+
+<main>
+
+<section class="about">
+    <h2>Mis on TaskMate?</h2>
+    <p>
+        TaskMate on veebipõhine ülesannete haldamise rakendus,
+        mis aitab kasutajal oma igapäevaseid tegevusi ja kohustusi
+        organiseerida.
+    </p>
+    <p>
+        Rakenduse eesmärk on aidata paremini aega planeerida,
+        vähendada unustamist ning hoida kõik olulised ülesanded
+        ühes kohas.
+    </p>
+
+    <h3>Sihtgrupp</h3>
+    <p>
+        TaskMate on mõeldud õpilastele, tudengitele, töötajatele
+        ja kõigile inimestele, kes soovivad oma igapäevaseid
+        tegemisi paremini planeerida.
+    </p>
+</section>
+
+<section>
+    <h2>Ülesannete ülevaade</h2>
+
+    <div class="statistics">
+        <div>
+            <h3>Kokku</h3>
+            <span id="totalTasks">0</span>
+        </div>
+
+        <div>
+            <h3>Tehtud</h3>
+            <span id="completedTasks">0</span>
+        </div>
+
+        <div>
+            <h3>Tegemata</h3>
+            <span id="pendingTasks">0</span>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Lisa uus ülesanne</h2>
+
+    <form id="taskForm">
+        <label>Ülesande nimi</label>
+        <input type="text" id="taskInput"
+        placeholder="Näiteks: Tee matemaatika kodutöö" required>
+
+        <label>Kirjeldus</label>
+        <textarea id="taskDescription"
+        placeholder="Kirjelda oma ülesannet..."></textarea>
+
+        <label>Tähtaeg</label>
+        <input type="date" id="taskDeadline">
+
+        <label>Prioriteet</label>
+        <select id="taskPriority">
+            <option value="low">Madal</option>
+            <option value="medium" selected>Keskmine</option>
+            <option value="high">Kõrge</option>
+        </select>
+
+        <button type="submit">+ Lisa ülesanne</button>
+    </form>
+</section>
+
+<section>
+    <h2>Minu ülesanded</h2>
+
+    <div>
+        <button type="button" data-filter="all">Kõik</button>
+        <button type="button" data-filter="pending">Pooleli</button>
+        <button type="button" data-filter="completed">Tehtud</button>
+    </div>
+
+    <div id="taskList"></div>
+</section>
+
+<section class="about">
+    <h2>Projekti tehnoloogiad</h2>
+    <ul>
+        <li>HTML – veebilehe struktuur</li>
+        <li>CSS – veebilehe kujundus</li>
+        <li>JavaScript – rakenduse funktsioonid</li>
+        <li>Git ja GitHub – versioonihaldus</li>
+        <li>Visual Studio Code – programmeerimine</li>
+    </ul>
+</section>
+
+<footer>
+    <p>TaskMate | TAK26</p>
+    <p>Projekti autor: TAK26 õpilane</p>
+</footer>
+
+</main>
+
+<script>
+let tasks = JSON.parse(
+    localStorage.getItem("taskmate_tasks") || "[]"
+);
+
+let currentFilter = "all";
+
+const taskForm = document.getElementById("taskForm");
+const taskList = document.getElementById("taskList");
+
+function saveTasks() {
+    localStorage.setItem(
+        "taskmate_tasks",
+        JSON.stringify(tasks)
+    );
 }
 
+function updateStatistics() {
+    document.getElementById("totalTasks").textContent =
+        tasks.length;
+
+    document.getElementById("completedTasks").textContent =
+        tasks.filter(t => t.completed).length;
+
+    document.getElementById("pendingTasks").textContent =
+        tasks.filter(t => !t.completed).length;
+}
+
+function escapeHTML(value) {
+    return String(value).replace(/[&<>"']/g, c => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#039;"
+    })[c]);
+}
+
+taskForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const title = document.getElementById("taskInput").value.trim();
+
+    if (!title) return;
+
+    tasks.push({
+        id: Date.now(),
+        title: title,
+        description: document.getElementById("taskDescription").value.trim(),
+        deadline: document.getElementById("taskDeadline").value,
+        priority: document.getElementById("taskPriority").value,
+        completed: false
+    });
+
+    saveTasks();
+    taskForm.reset();
+    renderTasks();
+});
+
+function toggleTask(id) {
+    const task = tasks.find(t => t.id === id);
+    if (task) task.completed = !task.completed;
+
+    saveTasks();
+    renderTasks();
+}
+
+function deleteTask(id) {
+    if (!confirm("Kas soovid selle ülesande kustutada?")) return;
+
+    tasks = tasks.filter(t => t.id !== id);
+
+    saveTasks();
+    renderTasks();
+}
+
+function editTask(id) {
+    const task = tasks.find(t => t.id === id);
+    if (!task) return;
+
+    const title = prompt("Uus ülesande nimi:", task.title);
+    if (title === null || !title.trim()) return;
+
+    const description = prompt(
+        "Uus kirjeldus:", task.description
+    );
+
+    task.title = title.trim();
+
+    if (description !== null) {
+        task.description = description.trim();
+    }
+
+    saveTasks();
+    renderTasks();
+}
+
+function filterTasks(filter) {
+    currentFilter = filter;
+    renderTasks();
+}
+
+document.querySelectorAll("[data-filter]").forEach(button => {
+    button.addEventListener("click", () => {
+        filterTasks(button.dataset.filter);
+    });
+});
+
+function renderTasks() {
+    taskList.innerHTML = "";
+
+    let filtered = tasks;
+
+    if (currentFilter === "completed") {
+        filtered = tasks.filter(t => t.completed);
+    }
+
+    if (currentFilter === "pending") {
+        filtered = tasks.filter(t => !t.completed);
+    }
+
+    if (filtered.length === 0) {
+        taskList.innerHTML =
+            '<p class="empty-message">Ülesandeid ei leitud.</p>';
+    }
+
+    filtered.forEach(task => {
+        const priorities = {
+            low: "Madal",
+            medium: "Keskmine",
+            high: "Kõrge"
+        };
+
+        const colors = {
+            low: "green",
+            medium: "orange",
+            high: "red"
+        };
+
+        const div = document.createElement("div");
+
+        div.className = "task-item";
+
+        if (task.completed) {
+            div.classList.add("completed");
+        }
+
+        div.innerHTML = `
+            <h3 class="${task.completed ? "done" : ""}">
+                ${escapeHTML(task.title)}
+            </h3>
+
+            <p>${escapeHTML(task.description)}</p>
+
+            <p>Tähtaeg: ${escapeHTML(task.deadline || "Määramata")}</p>
+
+            <p class="priority ${colors[task.priority] || "orange"}">
+                Prioriteet: ${priorities[task.priority] || "Keskmine"}
+            </p>
+
+            <button class="complete-btn" data-action="toggle">
+                ${task.completed ? "Võta tagasi" : "Tehtud"}
+            </button>
+
+            <button class="edit-btn" data-action="edit">
+                Muuda
+            </button>
+
+            <button class="delete-btn" data-action="delete">
+                Kustuta
+            </button>
+        `;
+
+        div.querySelector('[data-action="toggle"]')
+            .addEventListener("click", () => toggleTask(task.id));
+
+        div.querySelector('[data-action="edit"]')
+            .addEventListener("click", () => editTask(task.id));
+
+        div.querySelector('[data-action="delete"]')
+            .addEventListener("click", () => deleteTask(task.id));
+
+        taskList.appendChild(div);
+    });
+
+    updateStatistics();
+}
+
+renderTasks();
+</script>
+
+</body>
+</html>
