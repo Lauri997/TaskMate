@@ -1,1 +1,129 @@
 
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f5f9;
+    color: #1e293b;
+}
+
+header {
+    background: #2563eb;
+    color: white;
+    text-align: center;
+    padding: 35px 20px;
+}
+
+main {
+    max-width: 850px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+section {
+    background: white;
+    padding: 22px;
+    margin-bottom: 22px;
+    border-radius: 12px;
+    box-shadow: 0 3px 12px #00000010;
+}
+
+.statistics {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    text-align: center;
+}
+
+.statistics span {
+    font-size: 30px;
+    font-weight: bold;
+    color: #2563eb;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0 15px;
+    border: 1px solid #cbd5e1;
+    border-radius: 7px;
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+button {
+    border: none;
+    border-radius: 7px;
+    padding: 10px 15px;
+    margin: 4px;
+    cursor: pointer;
+    background: #2563eb;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+.task-item {
+    border: 1px solid #e2e8f0;
+    padding: 15px;
+    margin-top: 12px;
+    border-radius: 9px;
+}
+
+.task-item.completed {
+    background: #f0fdf4;
+}
+
+.done {
+    text-decoration: line-through;
+    color: #64748b;
+}
+
+.priority.green {
+    color: green;
+}
+
+.priority.orange {
+    color: orange;
+}
+
+.priority.red {
+    color: red;
+}
+
+.delete-btn {
+    background: #dc2626;
+}
+
+.edit-btn {
+    background: #64748b;
+}
+
+.complete-btn {
+    background: #16a34a;
+}
+
+.empty-message {
+    color: #64748b;
+    text-align: center;
+    padding: 20px;
+}
+
+@media (max-width: 600px) {
+    .statistics {
+        grid-template-columns: 1fr;
+    }
+
+    main {
+        padding: 12px;
+    }
+}
+
